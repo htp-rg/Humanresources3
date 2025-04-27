@@ -94,20 +94,12 @@
   </div>
 
   <script>
-    // Generate a random 6-digit code and store it in localStorage
-    const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-    localStorage.setItem('verificationCode', generatedCode);
-
-    
-    alert("Simulated: Your verification code is: " + generatedCode);
-
     function verifyCode() {
       const userCode = document.getElementById('verificationCode').value;
       const realCode = localStorage.getItem('verificationCode');
 
       if (userCode === realCode) {
-        alert("Email verified successfully!");
-        window.location.href = "index.html";
+        window.location.href = "index.html"; 
       } else {
         alert("Invalid code. Please try again.");
       }
@@ -116,4 +108,3 @@
 
 </body>
 </html>
-
