@@ -113,14 +113,7 @@
       const password = document.getElementById('password').value;
       
       if (email && password) {
-        const verificationCode = prompt('Enter Verification Code:');
-        
-        // You can replace "1234" with dynamic code if you want
-        if (verificationCode === '1234') {
-          window.location.href = 'index.html'; 
-        } else {
-          alert('Incorrect verification code!');
-        }
+        window.location.href = 'verification.html'; 
       } else {
         alert('Please enter email and password!');
       }
