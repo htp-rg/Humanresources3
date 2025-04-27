@@ -66,35 +66,6 @@
       font-size: 16px;
     }
 
-    .sidebar-menu li.has-submenu > a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .sidebar-menu li.has-submenu > a::after {
-      content: "▼";
-      font-size: 0.8em;
-      transition: transform 0.3s;
-    }
-
-    .submenu {
-      list-style: none;
-      padding-left: 20px;
-      max-height: 0;
-      overflow: hidden;
-      background: rgba(44, 62, 80, 0.8);
-      transition: max-height 0.4s ease;
-    }
-
-    .submenu li {
-      padding: 10px 0;
-    }
-
-    .submenu li a {
-      font-size: 14px;
-    }
-
     .main-content {
       flex: 1;
       padding: 30px;
@@ -157,57 +128,17 @@
       <img src="admin-avatar.png" alt="Admin" class="admin-image">
       <p style="font-size: 18px; font-weight: bold;">Admin</p>
     </div>
-    <ul class="sidebar-menu">
-      <li><a href="dashboard.html" style="font-weight: bold; color: #ccc;">Dashboard</a></li>
-
-      <li class="has-submenu">
-        <a href="#">Training Management</a>
-        <ul class="submenu">
-          <li><a href="trainer_selection.html">Trainer Selection</a></li>
-          <li><a href="planning.html">Planning</a></li> 
-          <li><a href="monitoring.html">Monitoring</a></li>
-          <li><a href="execution.html">Execution</a></li>
-        </ul>
-      </li>
-
-      <li class="has-submenu">
-        <a href="#">Learning Management</a>
-        <ul class="submenu">
-          <li><a href="identify_needs.html">Identify Learning Needs</a></li>
-          <li><a href="evaluate_outcomes.html">Evaluate Learning Outcomes</a></li>
-          <li><a href="develop_content.html">Develop Learning Content</a></li>
-        </ul>
-      </li>
-
-      <li class="has-submenu">
-        <a href="#">Employee Self-Service</a>
-        <ul class="submenu">
-          <li><a href="deployment.html">Deployment Go-Live</a></li>
-          <li><a href="feature_development.html">Content and Feature Development</a></li>
-        </ul>
-      </li>
-
-      <li class="has-submenu">
-        <a href="#">Competency Management</a>
-        <ul class="submenu">
-          <li><a href="competency_tracking.html">Competency Tracking and Reporting</a></li>
-          <li><a href="performance_evaluation.html">Performance Evaluation</a></li>
-        </ul>
-      </li>
-
-      <li class="has-submenu">
-        <a href="#">Succession Planning</a>
-        <ul class="submenu">
-          <li><a href="project_management.html">Project Management</a></li>
-          <li><a href="implementation.html">Implementation</a></li>
-          <li><a href="planning_framework.html">Succession Planning Framework</a></li>
-        </ul>
-      </li>
-
-      <li><a href="adminsettings.html">Admin Settings</a></li>
-      <li><a href="systemsettings.html">System Settings</a></li>
-      <li><a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a></li>
-    </ul>
+<ul class="sidebar-menu">
+  <li><a href="dashboard.html">Dashboard</a></li>
+  <li><a href="employee.html">Employees</a></li>
+  <li><a href="attendance.html">Attendances</a></li>
+  <li><a href="schedules.html">Schedules</a></li>
+  <li><a href="leave.html">Leave</a></li>
+  <li><a href="reports.html">Reports</a></li>
+  <li><a href="users.html">Users</a></li>
+  <li><a href="settings.html">Settings</a></li>
+  <li><a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a></li>
+</ul>
   </div>
 
   <div class="main-content">
@@ -215,7 +146,7 @@
       <img src="bcp.png" alt="Welcome Image">
       <h1>WELCOME TO HUMAN RESOURCES 3</h1>
       <p>This system provides a structured approach to managing key human resources functions.</p>
-      <p>This combined system simplifies HR and services management, enhancing efficiency and employee satisfaction. Some of the key features include automated time and attendance tracking, electronic timesheet submission, automated expense claim and reimbursement processing, online leave management, and optimized shift scheduling. These features eliminate manual work, enhance accuracy, and improve transparency. It Increases operational efficiency and data accuracy, Enhances employee experience and self-service, Improves decision-making with real-time analytics and reports Supports scalability and compliance with labor laws and company policies.</p>
+      <p>This combined system simplifies HR and services management, enhancing efficiency and employee satisfaction. Some of the key features include automated time and attendance tracking, electronic timesheet submission, automated expense claim and reimbursement processing, online leave management, and optimized shift scheduling. These features eliminate manual work, enhance accuracy, and improve transparency. It increases operational efficiency and data accuracy, enhances employee experience and self-service, improves decision-making with real-time analytics and reports, and supports scalability and compliance with labor laws and company policies.</p>
     </div>
   </div>
 
@@ -223,15 +154,6 @@
     function confirmLogout() {
       return confirm("Are you sure you want to log out?");
     }
-
-    // Handle submenu toggle
-    document.querySelectorAll('.has-submenu > a').forEach(item => {
-      item.addEventListener('click', e => {
-        e.preventDefault();
-        const submenu = item.nextElementSibling;
-        submenu.style.maxHeight = submenu.style.maxHeight ? null : submenu.scrollHeight + "px";
-      });
-    });
   </script>
 </body>
 </html>
