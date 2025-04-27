@@ -27,7 +27,6 @@
   height: 100vh;
   position: fixed;
   overflow-y: auto;
-  overflow-x: hidden; 
 }
 
     .sidebar-top {
@@ -84,14 +83,15 @@
       background: #333;
     }
 
-    .main-content {
-      margin-left: 280px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      height: 100vh;
-    }
+    ..main-content {
+  margin-left: 280px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  height: 100vh;
+}
 
     .topbar {
       display: flex;
