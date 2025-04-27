@@ -38,11 +38,9 @@
       margin-bottom: 20px;
     }
     .label-box {
-     background: black;
+      background: black;
       color: white;
       padding: 10px;
-      border: 1px solid black;
-      border: none;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
       font-size: 14px;
@@ -52,16 +50,16 @@
       justify-content: center;
     }
     .input-group input {
-  width: 70%;
-  padding: 10px;
-  border: 1px solid black; 
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background: #f0f0f0;
-  color: #333;
-  outline: none;
-  font-size: 14px;
-}
+      width: 70%;
+      padding: 10px;
+      border: 1px solid black; 
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background: #f0f0f0;
+      color: #333;
+      outline: none;
+      font-size: 14px;
+    }
     button {
       width: 100%;
       padding: 12px;
@@ -115,7 +113,14 @@
       const password = document.getElementById('password').value;
       
       if (email && password) {
-        window.location.href = 'index.html'; 
+        const verificationCode = prompt('Enter Verification Code:');
+        
+        // You can replace "1234" with dynamic code if you want
+        if (verificationCode === '1234') {
+          window.location.href = 'index.html'; 
+        } else {
+          alert('Incorrect verification code!');
+        }
       } else {
         alert('Please enter email and password!');
       }
