@@ -219,11 +219,76 @@
   </style>
 
   <script>
-    function confirmLogout() {
-      return confirm("Are you sure you want to log out?");
-    }
-  </script>
+    let currentPage = 1;
+    const rowsPerPage = 2; // Number of rows to display per page
+    const table = document.querySelector('#scheduleTable');
+    const paginationButtons = document.querySelectorAll('.pagination button');
+    const searchInput = document.getElementById('searchInput');
 
+    
+    function displayRows() {
+      const rows = table.querySelectorAll('tr');
+      const totalRows = rows.length;
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      
+      rows.forEach((row, index) => {
+        if (index >= start && index < end) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      paginationButtons[1].textContent = currentPage;
+      paginationButtons[0].disabled = currentPage === 1;
+      paginationButtons[2].disabled = currentPage * rowsPerPage >= totalRows;
+    }
+
+   
+    paginationButtons[0].addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        displayRows();
+      }
+    });
+
+    paginationButtons[2].addEventListener('click', () => {
+      const rows = table.querySelectorAll('tr');
+      const totalRows = rows.length;
+      if (currentPage * rowsPerPage < totalRows) {
+        currentPage++;
+        displayRows();
+      }
+    });
+
+    
+    displayRows();
+
+    
+    searchInput.addEventListener('input', function() {
+      const searchText = this.value.toLowerCase();
+      const rows = table.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        const columns = row.querySelectorAll('td');
+        let rowText = '';
+        columns.forEach(column => {
+          rowText += column.textContent.toLowerCase();
+        });
+
+        if (rowText.includes(searchText)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      
+      currentPage = 1;
+      displayRows();
+    });
+  </script>
 </head>
 
 <body>
