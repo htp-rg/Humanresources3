@@ -16,7 +16,6 @@
       color: black;
     }
 
-   
     .sidebar {
       width: 280px;
       background: rgba(44, 62, 80, 0.9);
@@ -71,22 +70,25 @@
       font-size: 16px;
     }
 
+    .logout-container {
+      padding: 20px;
+    }
+
     .logout-button {
       background: black;
       color: white;
-      padding: 8px 16px;
+      padding: 10px 16px;
       border-radius: 5px;
-      display: inline-block;
-      margin-top: 10px;
       font-weight: bold;
       text-align: center;
+      display: block;
+      width: 100%;
     }
 
     .logout-button:hover {
       background: #333;
     }
 
- 
     .main-content {
       margin-left: 280px;
       flex: 1;
@@ -206,12 +208,12 @@
       <li><a href="reports.html">Reports</a></li>
       <li><a href="users.html">Users</a></li>
       <li><a href="settings.html">Settings</a></li>
-      <li>
-        <a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a>
-      </li>
     </ul>
-  </div>
 
+    <div class="logout-container" style="margin-top: auto;">
+      <a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a>
+    </div>
+  </div>
 
   <main class="main-content">
     <header class="topbar">
