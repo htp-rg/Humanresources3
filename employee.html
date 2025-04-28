@@ -188,7 +188,7 @@
       color: #3498db;
     }
 
-        .modal {
+    .modal {
       display: none;
       position: fixed;
       z-index: 1;
@@ -307,6 +307,22 @@
       document.getElementById('employeeModal').style.display = 'none';
     }
 
+    function editEmployee(id) {
+      const employee = employees.find(emp => emp.id === id);
+      alert(`Editing Employee: ${employee.name}`);
+    }
+
+    function deleteEmployee(id) {
+      const index = employees.findIndex(emp => emp.id === id);
+      if (index !== -1) {
+        const confirmDelete = confirm(`Are you sure you want to delete ${employees[index].name}?`);
+        if (confirmDelete) {
+          employees.splice(index, 1); // Remove the employee from the array
+          renderTable(); // Re-render the table to update the list
+        }
+      }
+    }
+
     window.onload = renderTable;
   </script>
 </head>
@@ -373,7 +389,6 @@
     </div>
   </div>
 
-  
   <div id="employeeModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
