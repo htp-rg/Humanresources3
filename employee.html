@@ -166,6 +166,32 @@
     function confirmLogout() {
       return confirm("Are you sure you want to log out?");
     }
+
+ 
+    function searchEmployees() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let table = document.getElementById('employeeTable');
+      let rows = table.getElementsByTagName('tr');
+
+      for (let i = 0; i < rows.length; i++) {
+        let cells = rows[i].getElementsByTagName('td');
+        if (cells.length > 0) {
+          let employeeName = cells[1].textContent.toLowerCase();
+          let employeeId = cells[0].textContent.toLowerCase();
+          if (employeeName.indexOf(input) > -1 || employeeId.indexOf(input) > -1) {
+            rows[i].style.display = '';
+          } else {
+            rows[i].style.display = 'none';
+          }
+        }
+      }
+    }
+
+  
+    function setEntries(num) {
+     
+      alert('Displaying ' + num + ' entries');
+    }
   </script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -209,11 +235,11 @@
         </div>
 
         <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search Employees...">
+          <input type="text" id="searchInput" placeholder="Search Employees..." onkeyup="searchEmployees()">
         </div>
 
         <div class="table-section">
-          <table>
+          <table id="employeeTable">
             <thead>
               <tr>
                 <th>ID</th>
@@ -239,58 +265,7 @@
                   <i class="fas fa-trash"></i>
                 </td>
               </tr>
-              <tr>
-                <td>00014</td>
-                <td>AGATHA, ZOEY</td>
-                <td>FACEBOOK CORPORATION</td>
-                <td>ACCOUNTING</td>
-                <td>ACCOUNTING SPECIALIST</td>
-                <td>Active</td>
-                <td class="actions">
-                  <i class="fas fa-eye"></i>
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash"></i>
-                </td>
-              </tr>
-              <tr>
-                <td>00013</td>
-                <td>TRUMP, DONALD</td>
-                <td>MICROSOFT CORPORATION</td>
-                <td>OPERATIONS</td>
-                <td>OPERATIONS MANAGER</td>
-                <td>Active</td>
-                <td class="actions">
-                  <i class="fas fa-eye"></i>
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash"></i>
-                </td>
-              </tr>
-              <tr>
-                <td>00012</td>
-                <td>TRADAEU, LUCY</td>
-                <td>GOOGLE CORPORATION</td>
-                <td>MARKETING</td>
-                <td>MARKETING MANAGER</td>
-                <td>Active</td>
-                <td class="actions">
-                  <i class="fas fa-eye"></i>
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash"></i>
-                </td>
-              </tr>
-              <tr>
-                <td>00011</td>
-                <td>BECKHAM, DAVID</td>
-                <td>APPLE CORPORATION</td>
-                <td>EXECUTIVE</td>
-                <td>CHIEF EXECUTIVE OFFICER</td>
-                <td>Active</td>
-                <td class="actions">
-                  <i class="fas fa-eye"></i>
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash"></i>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -298,11 +273,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
           <div>Showing 1 to 5 of 5 entries</div>
           <div>
-            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">Previous</button>
-            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">1</button>
-            <button style="background: #ecf0f1; color: black; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">2</button>
-            <button style="background: #ecf0f1; color: black; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">3</button>
-            <button style="background: #ecf0f1; color: black; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">4</button>
+            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;" onclick="setEntries(5)">5</button>
+            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;" onclick="setEntries(10)">10</button>
+            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;" onclick="setEntries(20)">20</button>
             <button style="background: #ecf0f1; color: black; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">Next</button>
           </div>
         </div>
