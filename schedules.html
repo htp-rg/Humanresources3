@@ -224,15 +224,18 @@
     const table = document.querySelector('#scheduleTable');
     const paginationButtons = document.querySelectorAll('.pagination button');
     const searchInput = document.getElementById('searchInput');
+    let rows = [];
 
     
     function displayRows() {
-      const rows = table.querySelectorAll('tr');
-      const totalRows = rows.length;
+      rows = Array.from(table.querySelectorAll('tr:not(:first-child)'));
+      const filteredRows = rows.filter(row => row.style.display !== 'none');
+      const totalRows = filteredRows.length;
+
       const start = (currentPage - 1) * rowsPerPage;
       const end = start + rowsPerPage;
-      
-      rows.forEach((row, index) => {
+
+      filteredRows.forEach((row, index) => {
         if (index >= start && index < end) {
           row.style.display = '';
         } else {
@@ -243,9 +246,10 @@
       paginationButtons[1].textContent = currentPage;
       paginationButtons[0].disabled = currentPage === 1;
       paginationButtons[2].disabled = currentPage * rowsPerPage >= totalRows;
+      document.getElementById('entriesInfo').textContent = Showing ${Math.min(totalRows, end)} of ${totalRows} entries;
     }
 
-   
+    
     paginationButtons[0].addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
@@ -254,8 +258,8 @@
     });
 
     paginationButtons[2].addEventListener('click', () => {
-      const rows = table.querySelectorAll('tr');
-      const totalRows = rows.length;
+      const filteredRows = Array.from(table.querySelectorAll('tr:not(:first-child)')).filter(row => row.style.display !== 'none');
+      const totalRows = filteredRows.length;
       if (currentPage * rowsPerPage < totalRows) {
         currentPage++;
         displayRows();
@@ -265,11 +269,9 @@
     
     displayRows();
 
-    
+
     searchInput.addEventListener('input', function() {
       const searchText = this.value.toLowerCase();
-      const rows = table.querySelectorAll('tr');
-
       rows.forEach(row => {
         const columns = row.querySelectorAll('td');
         let rowText = '';
@@ -284,7 +286,6 @@
         }
       });
 
-      
       currentPage = 1;
       displayRows();
     });
