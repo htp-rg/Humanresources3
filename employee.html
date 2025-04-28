@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Employees - Service System Management</title>
   <style>
-    body { 
-      font-family: 'Poppins', sans-serif; 
-      margin: 0; 
-      padding: 0; 
-      background: #ecf0f1; 
-      color: black; 
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ecf0f1;
+      color: black;
       height: 100vh;
       overflow: hidden;
     }
@@ -209,154 +209,55 @@
       background: #2980b9;
     }
 
+    
     .modal {
       display: none;
       position: fixed;
-      top: 0;
+      z-index: 1;
       left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      align-items: center;
-      justify-content: center;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+      padding-top: 60px;
     }
 
     .modal-content {
-      background: white;
+      background-color: #fefefe;
+      margin: 5% auto;
       padding: 20px;
-      border-radius: 8px;
-      width: 400px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 10px;
     }
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h3 {
-      margin: 0;
-    }
-
-    .close-btn {
-      cursor: pointer;
-      background: red;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
       font-weight: bold;
     }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
-
-  <script>
-    let currentPage = 1;
-    const rowsPerPage = 5;
-
-    const employees = [
-      { id: '00015', name: 'PUTIN, VLADIMIR', company: 'APPLE CORPORATION', department: 'ACCOUNTING', position: 'ACCOUNTING SPECIALIST', status: 'Active' },
-      { id: '00014', name: 'AGATHA, ZOEY', company: 'FACEBOOK CORPORATION', department: 'ACCOUNTING', position: 'ACCOUNTING SPECIALIST', status: 'Active' },
-      { id: '00013', name: 'TRUMP, DONALD', company: 'MICROSOFT CORPORATION', department: 'OPERATIONS', position: 'OPERATIONS MANAGER', status: 'Active' },
-      { id: '00012', name: 'TRADAEU, LUCY', company: 'GOOGLE CORPORATION', department: 'MARKETING', position: 'MARKETING MANAGER', status: 'Active' },
-      { id: '00011', name: 'BECKHAM, DAVID', company: 'APPLE CORPORATION', department: 'EXECUTIVE', position: 'CHIEF EXECUTIVE OFFICER', status: 'Active' }
-    ];
-
-    function renderTable() {
-      const tableBody = document.getElementById('employeeTableBody');
-      const startIndex = (currentPage - 1) * rowsPerPage;
-      const endIndex = startIndex + rowsPerPage;
-      const pageEmployees = employees.slice(startIndex, endIndex);
-
-      tableBody.innerHTML = '';
-      pageEmployees.forEach(employee => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${employee.id}</td>
-          <td>${employee.name}</td>
-          <td>${employee.company}</td>
-          <td>${employee.department}</td>
-          <td>${employee.position}</td>
-          <td>${employee.status}</td>
-          <td class="actions">
-            <i class="fas fa-eye" onclick="viewEmployee('${employee.id}')"></i>
-            <i class="fas fa-edit" onclick="editEmployee('${employee.id}')"></i>
-            <i class="fas fa-trash" onclick="deleteEmployee('${employee.id}')"></i>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-
-    function updatePagination() {
-      const totalPages = Math.ceil(employees.length / rowsPerPage);
-      const pagination = document.getElementById('pagination');
-      pagination.innerHTML = '';
-
-      for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.innerText = i;
-        pageButton.onclick = function () {
-          currentPage = i;
-          renderTable();
-          updatePagination();
-        };
-        pagination.appendChild(pageButton);
-      }
-    }
-
-    function viewEmployee(id) {
-      const employee = employees.find(emp => emp.id === id);
-      alert(Viewing employee: ${employee.name});
-    }
-
-    function editEmployee(id) {
-      const employee = employees.find(emp => emp.id === id);
-      alert(Editing employee: ${employee.name});
-    }
-
-    function deleteEmployee(id) {
-      const employee = employees.find(emp => emp.id === id);
-      const confirmation = confirm(Are you sure you want to delete employee: ${employee.name}?);
-      if (confirmation) {
-        alert(Employee ${employee.name} has been deleted.);
-      }
-    }
-
-    window.onload = function () {
-      renderTable();
-      updatePagination();
-    }
-  </script>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
   <div class="container">
     <div class="sidebar">
-      <div class="sidebar-top">
-        <img src="admin-avatar.png" alt="admin" class="admin-image">
-        <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
-      </div>
-      <div class="sidebar-content">
-        <ul class="sidebar-menu">
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="employee.html">Employees</a></li>
-          <li><a href="attendance.html">Attendances</a></li>
-          <li><a href="schedules.html">Schedules</a></li>
-          <li><a href="leave.html">Leave</a></li>
-          <li><a href="reports.html">Reports</a></li>
-          <li><a href="users.html">Users</a></li>
-          <li><a href="settings.html">Settings</a></li>
-        </ul>
-      </div>
-      <a href="login1.html" class="logout-link" onclick="return confirmLogout();">Log out</a>
+      <!-- Sidebar content here -->
     </div>
 
     <div class="main-content">
       <header class="topbar">
-        <div>EN</div>
-        <div>Quick Access</div>
-        <div>Beckham, David</div>
+        <!-- Topbar content here -->
       </header>
 
       <section class="dashboard">
@@ -383,7 +284,7 @@
               </tr>
             </thead>
             <tbody id="employeeTableBody">
-              
+              <!-- Employee data will be dynamically inserted here -->
             </tbody>
           </table>
         </div>
@@ -392,6 +293,72 @@
       </section>
     </div>
   </div>
+
+  
+  <div id="employeeModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    let employees = [
+      { id: '00015', name: 'PUTIN, VLADIMIR', company: 'APPLE CORPORATION', department: 'ACCOUNTING', position: 'ACCOUNTING SPECIALIST', status: 'Active' },
+      { id: '00014', name: 'AGATHA, ZOEY', company: 'FACEBOOK CORPORATION', department: 'ACCOUNTING', position: 'ACCOUNTING SPECIALIST', status: 'Active' },
+      { id: '00013', name: 'TRUMP, DONALD', company: 'MICROSOFT CORPORATION', department: 'OPERATIONS', position: 'OPERATIONS MANAGER', status: 'Active' },
+      { id: '00012', name: 'TRADAEU, LUCY', company: 'GOOGLE CORPORATION', department: 'MARKETING', position: 'MARKETING MANAGER', status: 'Active' },
+      { id: '00011', name: 'BECKHAM, DAVID', company: 'APPLE CORPORATION', department: 'EXECUTIVE', position: 'CHIEF EXECUTIVE OFFICER', status: 'Active' }
+    ];
+
+   
+    function renderTable() {
+      const tableBody = document.getElementById('employeeTableBody');
+      tableBody.innerHTML = ''; // Clear the table body before rendering new data
+
+      employees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${employee.id}</td>
+          <td>${employee.name}</td>
+          <td>${employee.company}</td>
+          <td>${employee.department}</td>
+          <td>${employee.position}</td>
+          <td>${employee.status}</td>
+          <td class="actions">
+            <i class="fas fa-eye" onclick="viewEmployee('${employee.id}')"></i>
+            <i class="fas fa-edit" onclick="editEmployee('${employee.id}')"></i>
+            <i class="fas fa-trash" onclick="deleteEmployee('${employee.id}')"></i>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    
+    function viewEmployee(id) {
+      const employee = employees.find(emp => emp.id === id);
+      document.getElementById('modalTitle').innerText = `Employee Details: ${employee.name}`;
+      document.getElementById('modalContent').innerHTML = `
+        <p><strong>ID:</strong> ${employee.id}</p>
+        <p><strong>Company:</strong> ${employee.company}</p>
+        <p><strong>Department:</strong> ${employee.department}</p>
+        <p><strong>Position:</strong> ${employee.position}</p>
+        <p><strong>Status:</strong> ${employee.status}</p>
+      `;
+      document.getElementById('employeeModal').style.display = 'block';
+    }
+
+    
+    function closeModal() {
+      document.getElementById('employeeModal').style.display = 'none';
+    }
+
+    
+    window.onload = renderTable;
+  </script>
 </body>
 </html>
-Se
+
+
