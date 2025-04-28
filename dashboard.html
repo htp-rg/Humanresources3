@@ -14,12 +14,13 @@
       color: black;
       height: 100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .container {
       display: flex;
+      width: 100%;
       height: 100vh;
-      overflow-y: auto; /* ONE SCROLL for sidebar + content */
     }
 
     .sidebar {
@@ -29,18 +30,21 @@
       color: white;
       display: flex;
       flex-direction: column;
-      flex-shrink: 0;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      position: relative;
     }
 
     .content-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
     }
 
     .sidebar-top {
       text-align: center;
-      margin-bottom: 20px;
       padding: 20px;
     }
 
@@ -57,7 +61,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      flex: 1;
+      flex-grow: 1;
     }
 
     .sidebar-menu li {
@@ -79,7 +83,6 @@
     }
 
     .logout-container {
-      margin-top: auto;
       padding: 20px;
     }
 
@@ -195,21 +198,23 @@
 <body>
   <div class="container">
     <div class="sidebar">
-      <div class="sidebar-top">
-        <img src="admin-avatar.png" alt="admin" class="admin-image">
-        <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
-      </div>
+      <div>
+        <div class="sidebar-top">
+          <img src="admin-avatar.png" alt="admin" class="admin-image">
+          <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
+        </div>
 
-      <ul class="sidebar-menu">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="employee.html">Employees</a></li>
-        <li><a href="attendance.html">Attendances</a></li>
-        <li><a href="schedules.html">Schedules</a></li>
-        <li><a href="leave.html">Leave</a></li>
-        <li><a href="reports.html">Reports</a></li>
-        <li><a href="users.html">Users</a></li>
-        <li><a href="settings.html">Settings</a></li>
-      </ul>
+        <ul class="sidebar-menu">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="employee.html">Employees</a></li>
+          <li><a href="attendance.html">Attendances</a></li>
+          <li><a href="schedules.html">Schedules</a></li>
+          <li><a href="leave.html">Leave</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="users.html">Users</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </div>
 
       <div class="logout-container">
         <a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a>
