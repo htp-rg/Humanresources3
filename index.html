@@ -10,26 +10,26 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
+      background: #ecf0f1;
+      color: black;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
-      min-height: 100vh;
-      background: #2c3e50;
-      color: #fff;
     }
 
     .sidebar {
       width: 280px;
       background: rgba(44, 62, 80, 0.9);
       backdrop-filter: blur(10px);
-      color: #fff;
-      padding: 20px 0;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      color: white;
       display: flex;
       flex-direction: column;
+      height: 100vh;
     }
 
     .sidebar-top {
       text-align: center;
-      margin-bottom: 20px;
+      padding: 20px 0;
     }
 
     .admin-image {
@@ -41,11 +41,15 @@
       border: 2px solid #fff;
     }
 
+    .sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+
     .sidebar-menu {
       list-style: none;
       padding: 0;
       margin: 0;
-      flex: 1;
     }
 
     .sidebar-menu li {
@@ -60,20 +64,36 @@
     }
 
     .sidebar-menu li a {
-      color: #fff;
+      color: white;
       text-decoration: none;
       display: block;
       font-size: 16px;
+    }
+
+    .logout-link {
+      background: black;
+      color: white !important;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 20px;
+      transition: background 0.3s;
+      display: block;
+    }
+
+    .logout-link:hover {
+      background: #333;
     }
 
     .main-content {
       flex: 1;
       padding: 30px;
       background: #ecf0f1;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow-y: auto;
     }
 
     .content-box {
@@ -105,20 +125,6 @@
       margin-bottom: 20px;
       color: #555;
     }
-
-   .logout-link {
-      background: black;
-      color: white !important;
-      border-radius: 5px;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 10px;
-      transition: background 0.3s;
-    }
-
-    .logout-button:hover {
-      background: #333;
-    }
   </style>
 </head>
 
@@ -128,17 +134,21 @@
       <img src="admin-avatar.png" alt="admin" class="admin-image">
       <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
     </div>
-<ul class="sidebar-menu">
-  <li><a href="dashboard.html">Dashboard</a></li>
-  <li><a href="employee.html">Employees</a></li>
-  <li><a href="attendance.html">Attendances</a></li>
-  <li><a href="schedules.html">Schedules</a></li>
-  <li><a href="leave.html">Leave</a></li>
-  <li><a href="reports.html">Reports</a></li>
-  <li><a href="users.html">Users</a></li>
-  <li><a href="settings.html">Settings</a></li>
-  <li><a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a></li>
-</ul>
+
+    <div class="sidebar-content">
+      <ul class="sidebar-menu">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="employee.html">Employees</a></li>
+        <li><a href="attendance.html">Attendances</a></li>
+        <li><a href="schedules.html">Schedules</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="users.html">Users</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </div>
+
+    <a href="login1.html" class="logout-link" onclick="return confirmLogout();">Log out</a>
   </div>
 
   <div class="main-content">
