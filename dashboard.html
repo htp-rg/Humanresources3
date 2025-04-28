@@ -19,21 +19,21 @@
     .container {
       display: flex;
       height: 100vh;
+      overflow-y: auto; /* ONE SCROLL for sidebar + content */
     }
 
     .sidebar {
-      width: 280px;
+      width: 290px;
       background: rgba(44, 62, 80, 0.9);
       backdrop-filter: blur(10px);
       color: white;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
+      flex-shrink: 0;
     }
 
     .content-wrapper {
       flex: 1;
-      overflow-y: auto;
       display: flex;
       flex-direction: column;
     }
