@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Employees - Service System Management</title>
+  <title>Service System Management Dashboard</title>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -27,7 +28,6 @@
       color: white;
       display: flex;
       flex-direction: column;
-      height: 100vh;
     }
 
     .sidebar-top {
@@ -89,7 +89,7 @@
       background: #333;
     }
 
-    .main-content {
+    .content-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -122,7 +122,6 @@
     .dashboard-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin-bottom: 20px;
     }
 
@@ -189,28 +188,7 @@
       color: #3498db;
     }
 
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .pagination button {
-      background: #3498db;
-      color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 5px;
-      margin: 0 5px;
-      cursor: pointer;
-    }
-
-    .pagination button:hover {
-      background: #2980b9;
-    }
-
-    
-    .modal {
+        .modal {
       display: none;
       position: fixed;
       z-index: 1;
@@ -247,61 +225,6 @@
       cursor: pointer;
     }
   </style>
-</head>
-
-<body>
-  <div class="container">
-    <div class="sidebar">
-      <!-- Sidebar content here -->
-    </div>
-
-    <div class="main-content">
-      <header class="topbar">
-        <!-- Topbar content here -->
-      </header>
-
-      <section class="dashboard">
-        <div class="dashboard-header">
-          <h2>Employees</h2>
-          <button class="add-button">+ Add</button>
-        </div>
-
-        <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search Employees...">
-        </div>
-
-        <div class="table-section">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Employee <i class="fas fa-sort-down"></i></th>
-                <th>Company</th>
-                <th>Department</th>
-                <th>Position</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="employeeTableBody">
-              <!-- Employee data will be dynamically inserted here -->
-            </tbody>
-          </table>
-        </div>
-
-        <div id="pagination" class="pagination"></div>
-      </section>
-    </div>
-  </div>
-
-  
-  <div id="employeeModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2 id="modalTitle"></h2>
-      <div id="modalContent"></div>
-    </div>
-  </div>
 
   <script>
     let employees = [
@@ -312,10 +235,9 @@
       { id: '00011', name: 'BECKHAM, DAVID', company: 'APPLE CORPORATION', department: 'EXECUTIVE', position: 'CHIEF EXECUTIVE OFFICER', status: 'Active' }
     ];
 
-   
     function renderTable() {
       const tableBody = document.getElementById('employeeTableBody');
-      tableBody.innerHTML = ''; // Clear the table body before rendering new data
+      tableBody.innerHTML = ''; // Clear the table before rendering new data
 
       employees.forEach(employee => {
         const row = document.createElement('tr');
@@ -336,7 +258,38 @@
       });
     }
 
-    
+    function searchEmployee() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filteredEmployees = employees.filter(employee => {
+        return (
+          employee.name.toLowerCase().includes(query) ||
+          employee.position.toLowerCase().includes(query) ||
+          employee.department.toLowerCase().includes(query)
+        );
+      });
+
+      const tableBody = document.getElementById('employeeTableBody');
+      tableBody.innerHTML = ''; // Clear the table before rendering new data
+
+      filteredEmployees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${employee.id}</td>
+          <td>${employee.name}</td>
+          <td>${employee.company}</td>
+          <td>${employee.department}</td>
+          <td>${employee.position}</td>
+          <td>${employee.status}</td>
+          <td class="actions">
+            <i class="fas fa-eye" onclick="viewEmployee('${employee.id}')"></i>
+            <i class="fas fa-edit" onclick="editEmployee('${employee.id}')"></i>
+            <i class="fas fa-trash" onclick="deleteEmployee('${employee.id}')"></i>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
     function viewEmployee(id) {
       const employee = employees.find(emp => emp.id === id);
       document.getElementById('modalTitle').innerText = `Employee Details: ${employee.name}`;
@@ -350,14 +303,84 @@
       document.getElementById('employeeModal').style.display = 'block';
     }
 
-    
     function closeModal() {
       document.getElementById('employeeModal').style.display = 'none';
     }
 
-    
     window.onload = renderTable;
   </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <img src="admin-avatar.png" alt="admin" class="admin-image">
+        <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
+      </div>
+      <div class="sidebar-content">
+        <ul class="sidebar-menu">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="employee.html">Employees</a></li>
+          <li><a href="attendance.html">Attendances</a></li>
+          <li><a href="schedules.html">Schedules</a></li>
+          <li><a href="leave.html">Leave</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="users.html">Users</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </div>
+      <a href="login1.html" class="logout-link" onclick="return confirmLogout();">Log out</a>
+    </div>
+
+    <div class="content-wrapper">
+      <header class="topbar">
+        <div class="language">EN</div>
+        <div class="quick-access">Quick Access</div>
+        <div class="user-profile">Beckham, David</div>
+      </header>
+
+      <section class="dashboard">
+        <div class="dashboard-header">
+          <h2>Employee List</h2>
+          <button class="add-button" onclick="window.location.href='add_employee.html'">Add New Employee</button>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" id="searchInput" onkeyup="searchEmployee()" placeholder="Search for employees..">
+        </div>
+
+        <div class="table-section">
+          <h4>Employees</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+              
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  
+  <div id="employeeModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <div id="modalContent"></div>
+    </div>
+  </div>
 </body>
 </html>
 
