@@ -12,13 +12,14 @@
       padding: 0;
       display: flex;
       min-height: 100vh;
-      background:#ecf0f1;
-  color: black;
+      background: #ecf0f1;
+      color: black;
     }
 
+    /* Sidebar */
     .sidebar {
       width: 280px;
-      background: #2c3e50;
+      background: rgba(44, 62, 80, 0.9);
       backdrop-filter: blur(10px);
       color: white;
       padding: 20px 0;
@@ -27,7 +28,8 @@
       flex-direction: column;
       height: 100vh;
       position: fixed;
-      
+      left: 0;
+      top: 0;
     }
 
     .sidebar-top {
@@ -41,7 +43,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 10px;
-      border: 2px solid white;
+      border: 2px solid #fff;
     }
 
     .sidebar-menu {
@@ -84,12 +86,13 @@
       background: #333;
     }
 
+    /* Main content */
     .main-content {
       margin-left: 280px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      overflow-y: scroll;
+      overflow-y: auto;
       height: 100vh;
     }
 
@@ -187,6 +190,7 @@
 </head>
 
 <body>
+  
   <div class="sidebar">
     <div class="sidebar-top">
       <img src="admin-avatar.png" alt="admin" class="admin-image">
@@ -203,9 +207,11 @@
       <li><a href="users.html">Users</a></li>
       <li><a href="settings.html">Settings</a></li>
       <li>
-  <a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a>
-</li>
+        <a href="login1.html" class="logout-button" onclick="return confirmLogout();">Log out</a>
+      </li>
+    </ul>
   </div>
+
 
   <main class="main-content">
     <header class="topbar">
@@ -245,31 +251,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Putin, Vladimir</td>
-                <td>Accounting Specialist</td>
-                <td>Jan 01, 2020</td>
-              </tr>
-              <tr>
-                <td>Trump, Donald</td>
-                <td>Operations Manager</td>
-                <td>Jan 06, 2019</td>
-              </tr>
-              <tr>
-                <td>Beckham, David</td>
-                <td>Chief Executive Officer</td>
-                <td>Jan 01, 2020</td>
-              </tr>
-              <tr>
-                <td>Thandbill, Lucy</td>
-                <td>Marketing Manager</td>
-                <td>Jan 03, 2018</td>
-              </tr>
-              <tr>
-                <td>Agatha, Zoey</td>
-                <td>Accounting Specialist</td>
-                <td>Feb 01, 2017</td>
-              </tr>
+              <tr><td>Putin, Vladimir</td><td>Accounting Specialist</td><td>Jan 01, 2020</td></tr>
+              <tr><td>Trump, Donald</td><td>Operations Manager</td><td>Jan 06, 2019</td></tr>
+              <tr><td>Beckham, David</td><td>Chief Executive Officer</td><td>Jan 01, 2020</td></tr>
+              <tr><td>Thandbill, Lucy</td><td>Marketing Manager</td><td>Jan 03, 2018</td></tr>
+              <tr><td>Agatha, Zoey</td><td>Accounting Specialist</td><td>Feb 01, 2017</td></tr>
             </tbody>
           </table>
         </div>
@@ -285,26 +271,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Beckham, David</td>
-                <td>Time-Out</td>
-                <td>04:01 PM</td>
-              </tr>
-              <tr>
-                <td>Beckham, David</td>
-                <td>Time-In</td>
-                <td>08:01 AM</td>
-              </tr>
-              <tr>
-                <td>Beckham, David</td>
-                <td>Time-Out</td>
-                <td>04:14 PM</td>
-              </tr>
-              <tr>
-                <td>Beckham, David</td>
-                <td>Time-In</td>
-                <td>08:03 AM</td>
-              </tr>
+              <tr><td>Beckham, David</td><td>Time-Out</td><td>04:01 PM</td></tr>
+              <tr><td>Beckham, David</td><td>Time-In</td><td>08:01 AM</td></tr>
+              <tr><td>Beckham, David</td><td>Time-Out</td><td>04:14 PM</td></tr>
+              <tr><td>Beckham, David</td><td>Time-In</td><td>08:03 AM</td></tr>
             </tbody>
           </table>
         </div>
@@ -319,20 +289,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Agatha, Zoey</td>
-                <td>Mar 02, 2020</td>
-              </tr>
-              <tr>
-                <td>Beckham, David</td>
-                <td>Jan 09, 2020</td>
-              </tr>
+              <tr><td>Agatha, Zoey</td><td>Mar 02, 2020</td></tr>
+              <tr><td>Beckham, David</td><td>Jan 09, 2020</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </section>
   </main>
-
 </body>
 </html>
