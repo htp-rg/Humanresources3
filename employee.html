@@ -163,62 +163,111 @@
   </style>
 
   <script>
-    function confirmLogout() {
-      return confirm("Are you sure you want to log out?");
+    let currentPage = 1;
+    const rowsPerPage = 5;
+
+    const employees = [
+      { id: '00015', name: 'PUTIN, VLADIMIR', company: 'APPLE CORPORATION', department: 'ACCOUNTING', position: 'ACCOUNTING SPECIALIST', status: 'Active' },
+      { id: '00014', name: 'AGATHA, ZOEY', company: 'FACEBOOK CORPORATION', department: 'ACCOUNTING', position: 'ACCOUNTING SPECIALIST', status: 'Active' },
+      { id: '00013', name: 'TRUMP, DONALD', company: 'MICROSOFT CORPORATION', department: 'OPERATIONS', position: 'OPERATIONS MANAGER', status: 'Active' },
+      { id: '00012', name: 'TRADAEU, LUCY', company: 'GOOGLE CORPORATION', department: 'MARKETING', position: 'MARKETING MANAGER', status: 'Active' },
+      { id: '00011', name: 'BECKHAM, DAVID', company: 'APPLE CORPORATION', department: 'EXECUTIVE', position: 'CHIEF EXECUTIVE OFFICER', status: 'Active' }
+    ];
+
+    function renderTable() {
+      const tableBody = document.getElementById('employeeTableBody');
+      const startIndex = (currentPage - 1) * rowsPerPage;
+      const endIndex = startIndex + rowsPerPage;
+      const pageEmployees = employees.slice(startIndex, endIndex);
+
+      tableBody.innerHTML = '';
+      pageEmployees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${employee.id}</td>
+          <td>${employee.name}</td>
+          <td>${employee.company}</td>
+          <td>${employee.department}</td>
+          <td>${employee.position}</td>
+          <td>${employee.status}</td>
+          <td class="actions">
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash"></i>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
     }
 
- 
-    function searchEmployees() {
-      let input = document.getElementById('searchInput').value.toLowerCase();
-      let table = document.getElementById('employeeTable');
-      let rows = table.getElementsByTagName('tr');
+    function updatePagination() {
+      const totalPages = Math.ceil(employees.length / rowsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
 
-      for (let i = 0; i < rows.length; i++) {
-        let cells = rows[i].getElementsByTagName('td');
-        if (cells.length > 0) {
-          let employeeName = cells[1].textContent.toLowerCase();
-          let employeeId = cells[0].textContent.toLowerCase();
-          if (employeeName.indexOf(input) > -1 || employeeId.indexOf(input) > -1) {
-            rows[i].style.display = '';
-          } else {
-            rows[i].style.display = 'none';
-          }
-        }
+      for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.innerText = i;
+        pageButton.onclick = function () {
+          currentPage = i;
+          renderTable();
+          updatePagination();
+        };
+        pagination.appendChild(pageButton);
       }
     }
 
-  
-    function setEntries(num) {
-     
-      alert('Displaying ' + num + ' entries');
+    function searchEmployees() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filteredEmployees = employees.filter(employee => 
+        employee.name.toLowerCase().includes(query) ||
+        employee.company.toLowerCase().includes(query) ||
+        employee.department.toLowerCase().includes(query) ||
+        employee.position.toLowerCase().includes(query)
+      );
+      const totalPages = Math.ceil(filteredEmployees.length / rowsPerPage);
+      const startIndex = (currentPage - 1) * rowsPerPage;
+      const endIndex = startIndex + rowsPerPage;
+      const pageEmployees = filteredEmployees.slice(startIndex, endIndex);
+      const tableBody = document.getElementById('employeeTableBody');
+      tableBody.innerHTML = '';
+
+      pageEmployees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${employee.id}</td>
+          <td>${employee.name}</td>
+          <td>${employee.company}</td>
+          <td>${employee.department}</td>
+          <td>${employee.position}</td>
+          <td>${employee.status}</td>
+          <td class="actions">
+            <i class="fas fa-eye"></i>
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash"></i>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      updatePagination();
+    }
+
+    window.onload = function () {
+      renderTable();
+      updatePagination();
+
+      document.getElementById('searchInput').addEventListener('input', searchEmployees);
     }
   </script>
-
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
   <div class="container">
     <div class="sidebar">
-      <div class="sidebar-top">
-        <img src="admin-avatar.png" alt="admin" class="admin-image">
-        <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
-      </div>
-
-      <div class="sidebar-content">
-        <ul class="sidebar-menu">
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="employee.html">Employees</a></li>
-          <li><a href="attendance.html">Attendances</a></li>
-          <li><a href="schedules.html">Schedules</a></li>
-          <li><a href="leave.html">Leave</a></li>
-          <li><a href="reports.html">Reports</a></li>
-          <li><a href="users.html">Users</a></li>
-          <li><a href="settings.html">Settings</a></li>
-        </ul>
-      </div>
-
-      <a href="login1.html" class="logout-link" onclick="return confirmLogout();">Log out</a>
+     
     </div>
 
     <div class="main-content">
@@ -235,11 +284,11 @@
         </div>
 
         <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search Employees..." onkeyup="searchEmployees()">
+          <input type="text" id="searchInput" placeholder="Search Employees...">
         </div>
 
         <div class="table-section">
-          <table id="employeeTable">
+          <table>
             <thead>
               <tr>
                 <th>ID</th>
@@ -251,33 +300,14 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>00015</td>
-                <td>PUTIN, VLADIMIR</td>
-                <td>APPLE CORPORATION</td>
-                <td>ACCOUNTING</td>
-                <td>ACCOUNTING SPECIALIST</td>
-                <td>Active</td>
-                <td class="actions">
-                  <i class="fas fa-eye"></i>
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash"></i>
-                </td>
-              </tr>
+            <tbody id="employeeTableBody">
               
             </tbody>
           </table>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-          <div>Showing 1 to 5 of 5 entries</div>
-          <div>
-            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;" onclick="setEntries(5)">5</button>
-            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;" onclick="setEntries(10)">10</button>
-            <button style="background: #3498db; color: white; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;" onclick="setEntries(20)">20</button>
-            <button style="background: #ecf0f1; color: black; border: none; padding: 5px 10px; margin: 0 2px; border-radius: 5px;">Next</button>
-          </div>
+          <div id="pagination"></div>
         </div>
       </section>
     </div>
