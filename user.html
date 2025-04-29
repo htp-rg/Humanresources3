@@ -1,1 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Service System Management Dashboard</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ecf0f1;
+      color: black;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(44, 62, 80, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar-top {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .admin-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 2px solid #fff;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li {
+      padding: 15px 20px;
+      border-bottom: 1px solid #34495e;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar-menu li:hover {
+      background: #3498db;
+    }
+
+    .sidebar-menu li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      font-size: 16px;
+    }
+
+    .logout-link {
+      background: black;
+      color: white !important;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 20px;
+      transition: background 0.3s;
+      display: block;
+    }
+
+    .logout-link:hover {
+      background: #333;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      background: #ecf0f1;
+      overflow-y: auto;
+    }
+
+    .content-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .content-box h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .actions input {
+      padding: 10px;
+      width: 50%;
+      font-size: 16px;
+    }
+
+    .actions button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #bdc3c7;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+
+    .btn-edit, .btn-delete {
+      padding: 5px 10px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-edit {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: #e74c3c;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <img src="admin-avatar.png" alt="admin" class="admin-image" />
+      <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
+    </div>
+    <div class="sidebar-content">
+      <ul class="sidebar-menu">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Employees</a></li>
+        <li><a href="#">Attendances</a></li>
+        <li><a href="#">Schedules</a></li>
+        <li><a href="#">Leave</a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </div>
+    <a href="login1.html" class="logout-link" onclick="return confirmLogout();">Log out</a>
+  </div>
+
+  <div class="main-content">
+    <div class="content-box">
+      <h1>USERS</h1>
+      <div class="actions">
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search users..." />
+        <div>
+          <button onclick="alert('Add User')">Add</button>
+          <button onclick="alert('Manage Roles')">Roles</button>
+        </div>
+      </div>
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FENIZA, ROGEN MARK B.</td>
+            <td>rmbaran5@gmail.com</td>
+            <td>EMPLOYEE</td>
+            <td>Employee</td>
+            <td>Enabled</td>
+            <td>09923380625</td>
+            <td>
+              <button class="btn-edit" onclick="editUser(this)">Edit</button>
+              <button class="btn-delete" onclick="deleteUser(this)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>SABULAO JOANA JOY</td>
+            <td>sabulaojoanajoy@gmail.com</td>
+            <td>EMPLOYEE</td>
+            <td>Employee</td>
+            <td>Enabled</td>
+            <td>09937315929</td>
+            <td>
+              <button class="btn-edit" onclick="editUser(this)">Edit</button>
+              <button class="btn-delete" onclick="deleteUser(this)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>TRIBIANA, PABLO GETIGAN</td>
+            <td>pablotribiana3@gmail.com</td>
+            <td>MANAGER</td>
+            <td>Admin</td>
+            <td>Enabled</td>
+            <td>09319440691</td>
+            <td>
+              <button class="btn-edit" onclick="editUser(this)">Edit</button>
+              <button class="btn-delete" onclick="deleteUser(this)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Tabianan Jenilyn B</td>
+            <td>hoshimikia@gmail.com</td>
+            <td>EMPLOYEE</td>
+            <td>Employee</td>
+            <td>Enabled</td>
+            <td>09463862093</td>
+            <td>
+              <button class="btn-edit" onclick="editUser(this)">Edit</button>
+              <button class="btn-delete" onclick="deleteUser(this)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>BERMOY ABIGAIL M.</td>
+            <td>gailmhe45@gmail.com</td>
+            <td>EMPLOYEE</td>
+            <td>Employee</td>
+            <td>Enabled</td>
+            <td>09920343045</td>
+            <td>
+              <button class="btn-edit" onclick="editUser(this)">Edit</button>
+              <button class="btn-delete" onclick="deleteUser(this)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function confirmLogout() {
+      return confirm("Are you sure you want to log out?");
+    }
+
+    function searchTable() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll("#userTable tbody tr");
+      rows.forEach(row => {
+        const rowText = row.innerText.toLowerCase();
+        row.style.display = rowText.includes(input) ? "" : "none";
+      });
+    }
+
+    function editUser(button) {
+      const name = button.closest("tr").children[0].innerText;
+      alert("Editing user: " + name);
+    }
+
+    function deleteUser(button) {
+      const row = button.closest("tr");
+      const name = row.children[0].innerText;
+      if (confirm("Are you sure you want to delete " + name + "?")) {
+        row.remove();
+      }
+    }
+  </script>
+</body>
+</html>
+
 
