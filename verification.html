@@ -16,15 +16,18 @@
       flex-direction: column;
       color: #fff;
     }
+
     h1 {
       font-size: 36px;
       margin-bottom: 10px;
     }
+
     h2 {
       font-size: 20px;
       margin-bottom: 30px;
       text-align: center;
     }
+
     .login-container {
       background: white;
       backdrop-filter: blur(10px);
@@ -34,11 +37,13 @@
       width: 350px;
       text-align: center;
     }
+
     .input-group {
       display: flex;
       margin-bottom: 20px;
       justify-content: center;
     }
+
     .label-box {
       background: black;
       color: white;
@@ -51,6 +56,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .input-group input {
       width: 70%;
       padding: 10px;
@@ -62,6 +68,7 @@
       outline: none;
       font-size: 14px;
     }
+
     button {
       width: 100%;
       padding: 12px;
@@ -72,6 +79,12 @@
       font-size: 16px;
       cursor: pointer;
       margin-top: 10px;
+    }
+
+    .code-display {
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -91,15 +104,24 @@
 
       <button type="submit">Verify</button>
     </form>
+
+    <p class="code-display" id="displayCode"></p>
   </div>
 
   <script>
+    
+    const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+    localStorage.setItem('verificationCode', generatedCode);
+
+        document.getElementById('displayCode').innerText = "Verification Code: " + generatedCode;
+
     function verifyCode() {
-      const userCode = document.getElementById('verificationCode').value;
+      const userCode = document.getElementById('verificationCode').value.trim();
       const realCode = localStorage.getItem('verificationCode');
 
       if (userCode === realCode) {
-        window.location.href = "index.html"; 
+        alert("Verification successful!");
+        window.location.href = "index.html";
       } else {
         alert("Invalid code. Please try again.");
       }
@@ -108,3 +130,5 @@
 
 </body>
 </html>
+
+
