@@ -1,1 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>attendances</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ecf0f1;
+      color: black;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(44, 62, 80, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar-top {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .admin-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 2px solid #fff;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li {
+      padding: 15px 20px;
+      border-bottom: 1px solid #34495e;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar-menu li:hover {
+      background: #3498db;
+    }
+
+    .sidebar-menu li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      font-size: 16px;
+    }
+
+    .logout-link {
+      background: black;
+      color: white !important;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 20px;
+      transition: background 0.3s;
+      display: block;
+    }
+
+    .logout-link:hover {
+      background: #333;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      background: #ecf0f1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .content-box {
+      background: white;
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 1000px;
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table thead {
+      background-color: #3498db;
+      color: white;
+    }
+
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .search-add-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .search-add-container input[type="text"] {
+      padding: 8px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-add-container button {
+      background-color: #2ecc71;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .search-add-container button:hover {
+      background-color: #27ae60;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .pagination button {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .pagination button:hover {
+      background: #3498db;
+      color: white;
+    }
+
+    .filter-dates {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-dates label {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <img src="admin-avatar.png" alt="admin" class="admin-image">
+      <p style="font-size: 18px; font-weight: bold;">SERVICES MANAGEMENT SYSTEM</p>
+    </div>
+
+    <div class="sidebar-content">
+      <ul class="sidebar-menu">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="employee.html">Employees</a></li>
+        <li><a href="attendance.html">Attendances</a></li>
+        <li><a href="schedules.html">Schedules</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="users.html">Users</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </div>
+
+    <a href="login1.html" class="logout-link" onclick="return confirmLogout();">Log out</a>
+  </div>
+
+  <div class="main-content">
+    <div class="content-box">
+      <h1>MY ATTENDANCES</h1>
+
+      <div class="filter-dates">
+        <div>
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date">
+        </div>
+        <div>
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date">
+        </div>
+        <button>Filter</button>
+      </div>
+
+      <div class="search-add-container">
+        <input type="text" id="searchInput" placeholder="Search attendances...">
+        <button onclick="addAttendance()">Add Attendance</button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table id="attendanceTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time In</th>
+              <th>Time Out</th>
+              <th>Total Hours</th>
+              <th>Status (In/Out)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2021-06-21</td>
+              <td>10:30:30 AM</td>
+              <td>-</td>
+              <td>-</td>
+              <td>Late In</td>
+            </tr>
+            <tr>
+              <td>2021-06-20</td>
+              <td>10:26:32 PM</td>
+              <td>10:27:00 PM</td>
+              <td>0hr 6mins</td>
+              <td>Late In / On Time</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <div>Showing 1 to 2 of 2 entries</div>
+        <div>
+          <button disabled>Previous</button>
+          <span>1</span>
+          <button>Next</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function confirmLogout() {
+      return confirm("Are you sure you want to log out?");
+    }
+
+    function addAttendance() {
+      alert("Add Attendance button clicked!");
+      // You can open a modal here later to add attendance
+    }
+
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+      let filter = this.value.toUpperCase();
+      let rows = document.querySelector("#attendanceTable tbody").rows;
+      
+      for (let i = 0; i < rows.length; i++) {
+        let firstCol = rows[i].cells[0].textContent.toUpperCase();
+        let secondCol = rows[i].cells[1].textContent.toUpperCase();
+        let thirdCol = rows[i].cells[2].textContent.toUpperCase();
+        let fourthCol = rows[i].cells[3].textContent.toUpperCase();
+        let fifthCol = rows[i].cells[4].textContent.toUpperCase();
+
+        if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 ||
+            thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 ||
+            fifthCol.indexOf(filter) > -1) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
+
 
