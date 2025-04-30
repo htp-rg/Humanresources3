@@ -310,7 +310,7 @@
     }
 
     function editEmployee(id) {
-      const employee = employees.find(emp => emp.id === id);
+      window.location.href = 'editemployee.html?id=${id};
       alert(`Editing Employee: ${employee.name}`);
     }
 
